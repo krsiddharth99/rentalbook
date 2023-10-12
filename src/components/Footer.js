@@ -2,25 +2,25 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer class="text-gray-600 body-font">
+    <footer class="text-gray-600 body-font border-t-[1px]">
       <div class="container px-5 py-24 mx-auto">
         <div class="flex flex-wrap md:text-left text-center order-first">
           <div class="lg:w-1/4 md:w-1/2 w-full px-4">
             <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
-              CATEGORIES
+              GENRES
             </h2>
             <nav class="list-none mb-10">
               <li>
-                <a class="text-gray-600 hover:text-gray-800">First Link</a>
+                <a class="text-gray-600 hover:text-gray-800">Horror</a>
               </li>
               <li>
-                <a class="text-gray-600 hover:text-gray-800">Second Link</a>
+                <a class="text-gray-600 hover:text-gray-800">Romantic</a>
               </li>
               <li>
-                <a class="text-gray-600 hover:text-gray-800">Third Link</a>
+                <a class="text-gray-600 hover:text-gray-800">Bengali</a>
               </li>
               <li>
-                <a class="text-gray-600 hover:text-gray-800">Fourth Link</a>
+                <a class="text-gray-600 hover:text-gray-800">Sci-fi</a>
               </li>
             </nav>
           </div>
