@@ -49,7 +49,7 @@ function Login() {
             <div className="flex flex-col overflow-hidden bg-white rounded-md shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-md">
                 <div className="p-4 py-6 text-white bg-blue-500 md:w-80 md:flex-shrink-0 md:flex md:flex-col md:items-center md:justify-evenly">
                     <div className="my-3 text-4xl font-bold tracking-wider text-center">
-                        <a href="#">Rental Book</a>
+                        <a href="/">Rental Book</a>
                     </div>
                     <p className="mt-6 font-normal text-center text-gray-300 md:mt-0">
                         What you love to read? We have all types of book, login and enjoy all the genre book.
@@ -62,12 +62,12 @@ function Login() {
                     </p>
                     <p className="mt-6 text-sm text-center text-gray-300">
                         Read our{" "}
-                        <a href="#" className="underline">
+                        <a href="/" className="underline">
                             terms
                         </a>
                         {" "}
                         and{" "}
-                        <a href="#" className="underline">
+                        <a href="/" className="underline">
                             conditions
                         </a>
                     </p>
@@ -94,7 +94,7 @@ function Login() {
                                 <label htmlFor="password" className="text-sm font-semibold text-gray-500">
                                     Password
                                 </label>
-                                <a href="#" className="text-sm text-blue-600 hover:underline focus:text-blue-800">
+                                <a href="/" className="text-sm text-blue-600 hover:underline focus:text-blue-800">
                                     Forgot Password?
                                 </a>
                             </div>

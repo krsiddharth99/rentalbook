@@ -1,0 +1,8 @@
+*{
+    box-sizing: border-box;
+}
+
+.booksComponent{
+    padding:50px 20px;
+    margin:auto;
+}
