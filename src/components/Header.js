@@ -1,45 +1,27 @@
 import React from "react";
+import { AiOutlineShoppingCart } from 'react-icons/ai'
 
 function Header() {
   return (
-    <header className="sticky top-0 bg-white text-gray-600 body-font shadow-md" style={{zIndex:'1000'}}>
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-        <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" href="/">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-          </svg>
-          <span className="ml-3 text-xl">BookHive</span>
-        </a>
-        <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-          <a className="mr-5 hover:text-gray-900" href="http://localhost:3000/books">Books</a>
-          <a className="mr-5 hover:text-gray-900" href="/">About Us</a>
-          <a className="mr-5 hover:text-gray-900" href="/">Contact Us</a>
-        </nav>
-        <a href="/login" className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-          Login
-          <svg
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            className="w-4 h-4 ml-1"
-            viewBox="0 0 24 24"
-          >
-            <path d="M5 12h14M12 5l7 7-7 7"></path>
-          </svg>
-        </a>
+    <div className='bg-lime-50 flex items-center py-4 px-12 justify-between'>
+
+
+      <div className="flex items-center">
+        <span className="ml-3 text-4xl" style={{fontFamily:'Griffy'}}>BookHive</span>
       </div>
-    </header>
+
+      <div className="hidden lg:flex w-80 border-b-2 p-2 shadow-sm rounded-md bg-white">
+        <input className="w-full outline-none" placeholder="Search Books" />
+        🔍
+      </div>
+
+      <div className="flex items-center relative">
+        <AiOutlineShoppingCart className="text-4xl"/>
+        <div className="absolute bottom-5 left-5 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-sm">2</div>
+      </div>
+
+
+    </div>
   );
 }
 

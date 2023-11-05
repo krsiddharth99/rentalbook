@@ -8,7 +8,7 @@ import './Books.css';
 
 
 
-function Books() {
+function Books(props) {
 
   const [books, setBooks] = useState([]);
 
@@ -23,10 +23,13 @@ function Books() {
   }
 
 
+   const displayBooks = props.sliceNumber > 0 ? books.slice(0, props.sliceNumber) : books.slice(props.sliceNumber);
+
+
   return (
     <Box className="booksComponent gap-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
       {
-        books.map(book => (
+        displayBooks.map(book => (
           <a key={book.id} href={`http://localhost:3000/books/${book.id}`} target="_blank" rel="noopener noreferrer">
             <BookCard key={book.id} title={book.name} author={book.author} rent_price={book.rent_price} imageUrl={handleImageurl(book.imageurl)} />
           </a>

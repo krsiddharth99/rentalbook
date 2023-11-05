@@ -8,10 +8,12 @@ import Header from "./components/Header";
 import Books from "./components/Books";
 import Footer from "./components/Footer";
 import BookPage from "./pages/BookPage";
+import StaticHeader from "./components/StaticHeader";
 
 function App() {
   return (
     <>
+    <StaticHeader />
     <Header />
     <Router>
       <Routes>
