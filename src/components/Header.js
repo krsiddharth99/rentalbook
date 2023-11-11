@@ -1,12 +1,17 @@
 import React from "react";
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+
+
+  const navigate = useNavigate();
+
   return (
     <div className='bg-lime-50 flex items-center py-4 px-12 justify-between'>
 
 
-      <div className="flex items-center">
+      <div className="flex items-center cursor-pointer" onClick={() => navigate('/')}>
         <span className="ml-3 text-4xl" style={{fontFamily:'Griffy'}}>BookHive</span>
       </div>
 

@@ -6,7 +6,7 @@ import { RiTwitterXFill } from 'react-icons/ri'
 function Footer() {
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 to-slate-950 mt-10 py-6">
+    <div className="bg-gradient-to-br from-slate-900 to-slate-950 py-6">
 
       <div>
         <hr className="border-t-2 border-dashed border-gray-600" />

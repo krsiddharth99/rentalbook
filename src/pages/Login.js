@@ -1,49 +1,64 @@
 import {Alert, Snackbar} from "@mui/material";
 import axios from "axios";
 import React, {useState} from "react";
-
+import { useNavigate } from "react-router-dom";
 function Login() {
 
+
+
+    const navigate = useNavigate();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const [notification, setNotification] = useState(false)
+    const [successNotification, setSuccessNotification] = useState(false)
+    const [failureNotification, setFailureNotification] = useState(false)
 
-    const successNotification = () => {
-        setNotification(true);
+    const handleSuccessNotification = () => {
+        setSuccessNotification(true);
     };
 
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setNotification(false);
-    };
+    const handleFailureNotification =() => {
+        setFailureNotification(true);
+    }
 
     function handleLogin() {
         axios.post("http://localhost:8080/auth/login", {
             "username": username,
             "password": password
         }).then(function (response) {
-            console.log(response)
-            successNotification()
+            localStorage.clear()
+            localStorage.setItem('userFirstName', response.data.user.first_name)
+            localStorage.setItem('userLastName', response.data.user.last_name)
+            localStorage.setItem('token', response.data.jwt);
+            handleSuccessNotification();
+            navigate('/')
+        }).catch((err) => {
+            handleFailureNotification();
         })
     }
 
 
     return (
         <div className="flex items-center min-h-screen p-4 bg-gray-100 lg:justify-center">
-            <Snackbar open={notification}
-                autoHideDuration={6000}
-                onClose={handleClose}>
-                <Alert onClose={handleClose}
+            <Snackbar open={successNotification}
+                autoHideDuration={6000}>
+                <Alert
                     severity="success"
                     sx={
                         {width: '100%'}
                 }>
-                    Successfully Registered
+                    You are logged in!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={failureNotification}
+                autoHideDuration={6000} onClose={()=>setFailureNotification(false)} anchorOrigin={{vertical:'bottom', horizontal: 'center'}}>
+                <Alert
+                    severity="error"
+                    sx={
+                        {width: '100%'}
+                }>
+                    Incorrect Username or Password
                 </Alert>
             </Snackbar>
             <div className="flex flex-col overflow-hidden bg-white rounded-md shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-md">
@@ -57,7 +72,7 @@ function Login() {
                     <p className="flex flex-col items-center justify-center mt-10 text-center">
                         <span>Don't have an account?</span>
                         <a href="/signup" className="underline">
-                            Get Started!
+                            Sign Up
                         </a>
                     </p>
                     <p className="mt-6 text-sm text-center text-gray-300">

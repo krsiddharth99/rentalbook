@@ -10,9 +10,9 @@ function Home() {
     <>
       <Hero />
       <Features />    
-      <HomeBooks />
-      <Testimonials />
       <LatestAdditions />
+      <Testimonials />
+      <HomeBooks />
     </>
   );
 }

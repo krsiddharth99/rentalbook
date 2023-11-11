@@ -29,7 +29,7 @@ function BookPage() {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <SingleBookComponent key={currentBook.id} title={currentBook.name} author={currentBook.author} description={currentBook.description} bookCover={handleImageurl(currentBook.imageurl)} rentPrice={currentBook.rent_price} />
+        <SingleBookComponent key={currentBook.book.id} title={currentBook.book.name} author={currentBook.book.author} description={currentBook.book.description} bookCover={handleImageurl(currentBook.book.imageurl)} rentPrice={currentBook.book.rent_price} genres={currentBook.genres} />
       )}
     </>
   )

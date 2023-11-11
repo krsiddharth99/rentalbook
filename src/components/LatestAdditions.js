@@ -1,5 +1,5 @@
 import React from 'react'
-import Books from './Books'
+import CustomerBooks from './CustomerBooks'
 
 function LatestAdditions() {
   return (
@@ -7,7 +7,7 @@ function LatestAdditions() {
     <div className='text-xl font-bold text-center mt-4'>
       LATEST ADDITIONS
     </div>
-    <Books sliceNumber={-5}/>
+    <CustomerBooks latestAdditions={true}/>
 
     <div className='mt-8 mx-auto text-white font-semibold bg-gradient-to-b from-green-500 to-green-700 p-2 shadow-md w-32 text-center'>
       VIEW MORE

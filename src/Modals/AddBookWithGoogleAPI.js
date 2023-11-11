@@ -9,7 +9,11 @@ import {
 import axios from 'axios';
 import React, { useState } from 'react'
 
+import { useAuth } from '../context/DecodedToken'
+
 function AddBookWithGoogleAPI() {
+
+    const { decodedToken } = useAuth();
 
     const [searchValue, setSearchValue] = useState('');
 
@@ -25,24 +29,29 @@ function AddBookWithGoogleAPI() {
 
 
 
-    function addBookToDatabase(title, authors, description, imageurl) {
-        
+    function addBookToDatabase(title, authors, description, imageurl, categories) {
+
         const rent_price = window.prompt("Please enter the rent price ");
-        
-        const bookData = [];
-        console.log(`${title} ${authors} ${description} ${imageurl}`);
-        bookData.push({
-            "name":title,
-            "author":authors.join(', '),
-            "description":description,
-            "imageurl":imageurl,
-            "rent_price":parseFloat(rent_price)
-        })
+
+        let bookData = {};
+        console.log(`${title} ${authors} ${description} ${imageurl} ${categories}`);
+        bookData = {
+            "book": {
+                "name": title,
+                "author": authors.join(', '),
+                "description": description,
+                "imageurl": imageurl,
+                "rent_price": parseFloat(rent_price)
+            },
+            "user_id":decodedToken.userId,
+            "genres": categories
+        }
 
         axios.post(`http://localhost:8080/books`, bookData)
             .then(res => {
                 console.log(res.data);
                 alert(`${title} has been added successfully!`);
+                window.location.reload();
             })
             .catch(err => console.log(err))
     }
@@ -126,7 +135,7 @@ function AddBookWithGoogleAPI() {
                                 )
                             } </ListItemText>
                         <div>
-                            <ListItemButton onClick={() => addBookToDatabase(item.volumeInfo.title, item.volumeInfo.authors, item.volumeInfo.description, item.volumeInfo.imageLinks.thumbnail)}>
+                            <ListItemButton onClick={() => addBookToDatabase(item.volumeInfo.title, item.volumeInfo.authors, item.volumeInfo.description, item.volumeInfo.imageLinks.thumbnail, item.volumeInfo.categories)}>
                                 Add this book
                             </ListItemButton>
                         </div>

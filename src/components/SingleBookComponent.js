@@ -13,6 +13,7 @@ function SingleBookComponent(props) {
       <div className="book-info">
         <h2>{props.title}</h2>
         <p>Author(s): {props.author}</p>
+        <p>Genres(s): {props.genres.join(", ")}</p>
         <p>Description: {props.description}</p>
         <p>Price: Rs {props.rentPrice}</p>
         <button className="rent-button">Rent</button>

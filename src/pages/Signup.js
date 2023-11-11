@@ -1,9 +1,12 @@
 import {Alert, Snackbar} from "@mui/material";
 import axios from "axios";
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
 
 
 function Signup() {
+
+    const navigate = useNavigate();
 
     const [notification, setNotification] = React.useState(false);
 
@@ -40,8 +43,8 @@ function Signup() {
             "address": address,
             "role": role
         }).then(function (response) {
-            console.log(response);
             successNotification();
+            navigate('/login')
 
         }).catch(function (error) {
             console.log(error);
@@ -68,8 +71,7 @@ function Signup() {
                         <a href="/">Rental Book</a>
                     </div>
                     <p className="mt-6 font-normal text-center text-gray-300 md:mt-0">
-                        What you love to read? We have all types of book, login and enjoy
-                                                                                                                                    all the genre book.
+                    Unlock a world of knowledge and literary treasures by signing up with BookHive.
                     </p>
                     <p className="flex flex-col items-center justify-center mt-10 text-center">
                         <span>Already have an account?</span>
@@ -168,7 +170,7 @@ function Signup() {
                         <div>
                             <button type="" className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-blue-500 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-blue-200 focus:ring-4"
                                 onClick={handleSignUp}>
-                                Log in
+                                Register
                             </button>
                         </div>
 

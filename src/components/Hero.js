@@ -13,7 +13,7 @@ function Hero() {
 
   return (
     <div className='p-14 flex flex-wrap items-center justify-evenly' style={background}>
-        <img src={harry_potter_series} className='max-w-full max-w-lg w-full h-auto mr-4'/>
+        <img src={harry_potter_series} className='max-w-full max-w-lg w-full h-auto mr-4' alt=''/>
         <div className='text-3xl text-white'>
             START READING<br/> the <span className='font-bold'>HARRY POTTER </span> Series today!
             <br/>

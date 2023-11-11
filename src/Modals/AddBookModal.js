@@ -1,13 +1,17 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useAuth } from '../context/DecodedToken';
 
 
-function AddBookModal({closeModal}) {
+function AddBookModal({ closeModal }) {
+
+    const { decodedToken } = useAuth();
 
     const [bookTitle, setBookTitle] = useState('');
     const [bookAuthor, setBookAuthor] = useState('');
     const [bookDescription, setBookDescription] = useState('');
     const [bookCover, setBookCover] = useState(null);
+    const [bookGenre, setBookGenre] = useState('');
     const [rentPrice, setRentPrice] = useState(0);
 
     function bookCoverUpload(e) {
@@ -32,15 +36,19 @@ function AddBookModal({closeModal}) {
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
 
-        const bookData = [];
-        bookData.push({
-            "name": bookTitle,
-            "author": bookAuthor,
-            "description": bookDescription,
-            "imageurl": `images/${fileName}`,
-            "rent_price": parseFloat(rentPrice)
+
+        let bookData = {};
+        bookData = {
+            "book": {
+                "name": bookTitle,
+                "author": bookAuthor,
+                "description": bookDescription,
+                "imageurl": `images/${fileName}`,
+                "rent_price": parseFloat(rentPrice)
+            },
+            "user_id": decodedToken.userId,
+            "genres": bookGenre.split(',')
         }
-        )
 
         console.log(bookData)
 
@@ -49,6 +57,7 @@ function AddBookModal({closeModal}) {
                 console.log(res.data);
                 closeModal();
                 alert(`${bookTitle} has been added successfully!`);
+                window.location.reload()
             })
             .catch(err => console.log(err))
 
@@ -88,6 +97,12 @@ function AddBookModal({closeModal}) {
                             Rent Price
                         </label>
                         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bookAuthor" type="number" onChange={(e) => setRentPrice(e.target.value)} required />
+                    </div>
+                    <div className="p-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="bookGenre">
+                            Genre <span className='font-thin italic'>(You can add multiple Authors by placing a comma between each author)</span>
+                        </label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="bookGenre" type="text" onChange={(e) => setBookGenre(e.target.value)} required />
                     </div>
                     <div className="p-4">
                         <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit">Add Book</button>
