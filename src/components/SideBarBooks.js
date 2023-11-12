@@ -1,7 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-function SideBarBooks({ setSelectedGenre, selectedGenre }) {
+import { useSearchFilter } from '../context/SearchFilterContext'
+
+function SideBarBooks({ setSelectedGenre, selectedGenre, setSortBy, sortBy }) {
+
+    const { setSearchFilter, searchFilter } = useSearchFilter();
 
     const [genres, setGenres] = useState([]);
 
@@ -13,6 +17,14 @@ function SideBarBooks({ setSelectedGenre, selectedGenre }) {
 
     const handleGenreFilter = (clickedGenre, e) => {
         setSelectedGenre(clickedGenre);
+    }
+
+    const handleSortBy = (e) => {
+        sortBy === e.target.id ? setSortBy(null) : setSortBy(e.target.id);
+    }
+
+    const handleClearSearchFilter = () => {
+        setSearchFilter('')
     }
 
 
@@ -27,11 +39,20 @@ function SideBarBooks({ setSelectedGenre, selectedGenre }) {
                     <p className='font-thin text-sm italic mb-4 cursor-pointer text-blue-800' onClick={() => setSelectedGenre(null)}>Clear Filter</p>
                 }
 
-                <ul>
+                <ul className='mb-8 overflow-y-auto w-64 h-96'>
                     {genres.map((genre) => (
                         <li key={genre.id} className={`cursor-pointer mb-2 hover:text-gray-400 ${selectedGenre === genre.genre ? 'font-bold' : ''}`} onClick={(e) => handleGenreFilter(genre.genre, e)}>{genre.genre}</li>
                     ))}
                 </ul>
+
+                <p className='font-semibold text-xl'>SORT BY</p>
+                <ul className='mb-8 overflow-y-auto w-64'>
+                    <li id="latestAdditions" className={`cursor-pointer mb-2 hover:text-gray-400 ${sortBy === 'latestAdditions' ? 'font-bold' : ''}`} onClick={(e) => handleSortBy(e)}>Latest Additions</li>
+                    <li id="bookTitle" className={`cursor-pointer mb-2 hover:text-gray-400 ${sortBy === 'bookTitle' ? 'font-bold' : ''}`} onClick={(e) => handleSortBy(e)}>Book Title</li>
+                    <li id="price" className={`cursor-pointer mb-2 hover:text-gray-400 ${sortBy === 'price' ? 'font-bold' : ''}`} onClick={(e) => handleSortBy(e)}>Price</li>
+                </ul>
+
+                {searchFilter === null || searchFilter === '' ? '' : <p className='text-md cursor-pointer italic hover:text-gray-400' onClick={handleClearSearchFilter}>Clear Search Filter</p>}
 
             </div>
 

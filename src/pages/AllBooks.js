@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import CustomerBooks from '../components/CustomerBooks'
 import SideBarBooks from '../components/SideBarBooks'
+import { useSearchFilter } from '../context/SearchFilterContext';
 
 function AllBooks() {
 
     const [selectedGenre, setSelectedGenre] = useState(null);
+    const [sortBy, setSortBy] = useState(null);
+
+    const { searchFilter, setSearchFilter } = useSearchFilter();
 
     useEffect(()=>{
-
-    },[selectedGenre])
+    },[selectedGenre, sortBy])
 
 
     return (
@@ -18,8 +21,8 @@ function AllBooks() {
             </div>
 
             <div className='flex'>
-                <SideBarBooks setSelectedGenre = {setSelectedGenre} selectedGenre = {selectedGenre}/>
-                <CustomerBooks selectedGenre = {selectedGenre}/>
+                <SideBarBooks setSelectedGenre = {setSelectedGenre} selectedGenre = {selectedGenre} sortBy={sortBy} setSortBy={setSortBy} searchFilter={searchFilter} setSearchFilter={setSearchFilter}/>
+                <CustomerBooks selectedGenre = {selectedGenre} sortBy={sortBy} searchFilter={searchFilter}/>
             </div>
 
 

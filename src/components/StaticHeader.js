@@ -8,6 +8,8 @@ function StaticHeader() {
 
     const navigate = useNavigate();
 
+
+
     const { decodedToken } = useAuth();
 
     // Dropdown menu for Profile name
@@ -44,7 +46,7 @@ function StaticHeader() {
     const handleLogout = () => {
         localStorage.clear();
         setIsDropdownOpen(false);
-        navigate('/');
+        window.location.reload();
     }
 
 

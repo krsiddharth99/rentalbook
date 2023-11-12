@@ -10,29 +10,32 @@ import Footer from "./components/Footer";
 import BookPage from "./pages/BookPage";
 import StaticHeader from "./components/StaticHeader";
 import { AuthProvider } from "./context/DecodedToken";
+import { SearchFilterContextProvider } from "./context/SearchFilterContext";
 
 function App() {
 
   return (
     <AuthProvider>
-    <>
-      <Router>
 
-        <StaticHeader/>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/managebooks" element={<ManageBooks />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/books" element={<AllBooks />} />
-          <Route path="/books/:bookid" element={<BookPage />} />
-        </Routes>
-        <Footer />
+      <SearchFilterContextProvider>
+        <Router>
 
-      </Router>
-    </>
+          <StaticHeader />
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/managebooks" element={<ManageBooks />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/books" element={<AllBooks />} />
+            <Route path="/books/:bookid" element={<BookPage />} />
+          </Routes>
+          <Footer />
+
+        </Router>
+      </SearchFilterContextProvider>
+
     </AuthProvider>
   );
 }

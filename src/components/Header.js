@@ -1,10 +1,13 @@
 import React from "react";
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { useNavigate } from "react-router-dom";
+import { useSearchFilter } from '../context/SearchFilterContext'
+
 
 function Header() {
 
 
+  const {setSearchFilter} = useSearchFilter();
   const navigate = useNavigate();
 
   return (
@@ -16,8 +19,8 @@ function Header() {
       </div>
 
       <div className="hidden lg:flex w-80 border-b-2 p-2 shadow-sm rounded-md bg-white">
-        <input className="w-full outline-none" placeholder="Search Books" />
-        🔍
+        <input className="w-full outline-none" placeholder="Search Books" onChange={(e)=>setSearchFilter(e.target.value)} onKeyDown={(e)=>e.key === 'Enter' ? navigate('/books'): null}/>
+        <span className='cursor-pointer' onClick={()=>navigate('/books')}>🔍</span>
       </div>
 
       <div className="flex items-center relative">

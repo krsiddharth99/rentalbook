@@ -1,10 +1,26 @@
+import axios from 'axios';
 import React from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/DecodedToken'
 
 function BookCard(props) {
 
     const navigate = useNavigate();
+
+    const { decodedToken } = useAuth();
+
+    const addToCart = () => {
+
+        if(decodedToken !== null){
+
+            axios.post(`http://localhost:8080/cart/${decodedToken.userId}/${props.id}`)
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err))
+        } else {
+            alert("You need to be logged in to add to cart!")
+        }
+    }
 
     return (
         <>
@@ -27,7 +43,7 @@ function BookCard(props) {
                     <div>
                         {`₹ ${props.rent_price}`}
                     </div>
-                    <div className='text-white font-bold h-7 bg-gradient-to-b from-green-500 to-green-700 p-1 shadow-md text-center inline-block flex items-center hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all transition-duration-1000 cursor-pointer'>
+                    <div className='text-white font-bold h-7 bg-gradient-to-b from-green-500 to-green-700 p-1 shadow-md text-center inline-block flex items-center hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all transition-duration-1000 cursor-pointer' onClick={addToCart}>
                         + <AiOutlineShoppingCart />
                     </div>
 
