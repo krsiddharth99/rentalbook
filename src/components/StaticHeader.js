@@ -59,7 +59,7 @@ function StaticHeader() {
             <div className="bg-green-600 flex flex-wrap py-2 px-4 lg:px-14 text-white justify-between space-x-4">
                 <div className='hidden lg:flex'>
                     <div className='mr-4 cursor-pointer' onClick={() => navigate('/books')}>Books</div>
-                    <div className='mr-4'>About Us</div>
+                    <div className='mr-4 cursor-pointer' onClick={(()=>navigate('about'))}>About Us</div>
                     <div className='mr-4'>Contact</div>
                 </div>
 

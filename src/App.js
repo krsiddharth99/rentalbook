@@ -13,6 +13,7 @@ import { SearchFilterContextProvider } from "./context/SearchFilterContext";
 import { CartUpdateContextProvider } from "./context/CartUpdateContext";
 import { useEffect } from "react";
 import ManageUsers from "./pages/ManageUsers";
+import About from "./pages/About";
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="/manageusers" element={<ManageUsers />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/books" element={<AllBooks />} />
+            <Route path="/about" element={<About />}/>
           </Routes>
           <Footer />
           </CartUpdateContextProvider>
