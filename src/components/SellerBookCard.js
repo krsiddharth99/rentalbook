@@ -5,10 +5,14 @@ import { useState } from 'react'
 import UpdateBookModal from '../Modals/UpdateBookModal'
 import { Box, Modal } from '@mui/material'
 
+import { useAuth } from '../context/DecodedToken'
+
 function SellerBookCard(props) {
 
+    const { axiosHeaders } = useAuth();
+
     const handleDelete = () => {
-        axios.delete(`http://localhost:8080/books/${props.id}`)
+        axios.delete(`http://localhost:8080/books/${props.id}`, axiosHeaders)
         .then((res) => {
             console.log(res)
             alert(`Successfully deleted "${props.title}"`)

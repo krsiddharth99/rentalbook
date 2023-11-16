@@ -4,6 +4,8 @@ import { Box } from '@mui/material'
 import axios from 'axios';
 import './Books.css';
 
+import { useCartUpdate } from '../context/CartUpdateContext';
+
 
 
 
@@ -13,6 +15,7 @@ function HomeBooksComponent(props) {
 
   const [displayBooks, setDisplayBooks] = useState([]);
 
+  const { shouldCartUpdate } = useCartUpdate();
 
   useEffect(() => {
     axios.get(`http://localhost:8080/books`)
@@ -20,7 +23,7 @@ function HomeBooksComponent(props) {
         setBooks(res.data)
       })
       .catch((err) => console.log(err));
-  }, [])
+  }, [shouldCartUpdate])
 
 
   function handleImageurl(url) {
@@ -54,7 +57,7 @@ function HomeBooksComponent(props) {
 
             displayBooks && displayBooks.map(book =>
             (
-              <BookCard key={book.book.id} id={book.book.id} title={book.book.name} author={book.book.author} rent_price={book.book.rent_price} imageUrl={handleImageurl(book.book.imageurl)} genres={book.genres} />
+              <BookCard key={book.book.id} id={book.book.id} title={book.book.name} author={book.book.author} rent_price={book.book.rent_price} imageUrl={handleImageurl(book.book.imageurl)} genres={book.genres} status={book.status} />
             ))
         }
       </Box >

@@ -1,11 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useAuth } from '../context/DecodedToken';
 
 
 function UpdateBookModal(props) {
 
-    const { decodedToken } = useAuth();
+    const { decodedToken, axiosHeaders } = useAuth();
 
 
     const [bookTitle, setBookTitle] = useState(props.title);
@@ -15,9 +15,6 @@ function UpdateBookModal(props) {
     const [bookGenre, setBookGenre] = useState(props.genres.join(', '));
     const [rentPrice, setRentPrice] = useState(props.rent_price);
 
-    useEffect(() => {
-        console.log(props.imageUrl.includes("books.google.com"));
-    }, [props])
 
     function bookCoverUpload(e) {
         console.log(`Hi there`);
@@ -40,7 +37,7 @@ function UpdateBookModal(props) {
             bookCoverFormData.append("fileName", fileName);
             bookCoverFormData.append("file", bookCover);
 
-            axios.post('http://localhost:8080/upload/bookCover', bookCoverFormData)
+            axios.post('http://localhost:8080/upload/bookCover', bookCoverFormData, axiosHeaders)
                 .then(res => console.log(res.data))
                 .catch(err => console.log(err));
         }
@@ -62,7 +59,7 @@ function UpdateBookModal(props) {
 
         console.log(bookData)
 
-        axios.put(`http://localhost:8080/books/${props.id}`, bookData)
+        axios.put(`http://localhost:8080/books/${props.id}`, bookData, axiosHeaders)
             .then(res => {
                 console.log(res.data);
                 alert(`${bookTitle} has been updated successfully!`);

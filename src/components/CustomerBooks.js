@@ -4,6 +4,7 @@ import { Box } from '@mui/material'
 import axios from 'axios';
 
 import { useSearchFilter } from '../context/SearchFilterContext'
+import { useCartUpdate } from '../context/CartUpdateContext';
 
 import './Books.css';
 
@@ -23,6 +24,8 @@ function CustomerBooks(props) {
 
   const [shouldApplyPropsCondition, setShouldApplyPropsCondition] = useState(false); // to avoid constant re-rendering of the 2nd useEffect
 
+  const { shouldCartUpdate } = useCartUpdate();
+
   useEffect(() => {
     axios.get(`http://localhost:8080/books`)
       .then((res) => {
@@ -31,7 +34,8 @@ function CustomerBooks(props) {
         setShouldApplyPropsCondition(true)
       })
       .catch((err) => console.log(err));
-  }, [props.selectedGenre, props.sortBy])
+      
+  }, [props.selectedGenre, props.sortBy, shouldCartUpdate])
 
 
 
@@ -108,7 +112,7 @@ function CustomerBooks(props) {
 
             displayBooks && displayBooks.map(book =>
             (
-              <BookCard key={book.book.id} id={book.book.id} title={book.book.name} author={book.book.author} rent_price={book.book.rent_price} imageUrl={handleImageurl(book.book.imageurl)} genres={book.genres} />
+              <BookCard key={book.book.id} id={book.book.id} title={book.book.name} author={book.book.author} rent_price={book.book.rent_price} imageUrl={handleImageurl(book.book.imageurl)} genres={book.genres} status = {book.status}/>
             ))
         }
       </Box >

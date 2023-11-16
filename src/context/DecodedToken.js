@@ -4,7 +4,12 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
+  const [startDecodeToken, setStartDecodeToken] = useState(false);
+
   const [decodedToken, setDecodedToken] = useState(null);
+
+  const [axiosHeaders, setAxiosHeaders] = useState();
 
   useEffect(() => {
     // Fetch the token from localStorage
@@ -14,12 +19,19 @@ export const AuthProvider = ({ children }) => {
     if (storedToken) {
       const jwtDecoded = jwtDecode(storedToken);
       setDecodedToken(jwtDecoded);
+      setAxiosHeaders({
+        headers: {
+          'Authorization': `Bearer ${storedToken}`
+        },
+      })
     }
-  }, []);
+
+    setStartDecodeToken(false);
+  }, [startDecodeToken]);
 
 
   return (
-    <AuthContext.Provider value={{ decodedToken, setDecodedToken }}>
+    <AuthContext.Provider value={{ decodedToken, setDecodedToken, setStartDecodeToken, axiosHeaders }}>
       {children}
     </AuthContext.Provider>
   );

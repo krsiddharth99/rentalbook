@@ -20,7 +20,6 @@ function Hero() {
     const { setSearchFilter } = useSearchFilter();
 
     const handleViewMoreClick = () => {
-        console.log('Hey')
         setSearchFilter('Harry Potter');
         navigate('/books')
     }

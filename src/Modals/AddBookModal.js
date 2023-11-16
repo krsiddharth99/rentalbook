@@ -5,7 +5,7 @@ import { useAuth } from '../context/DecodedToken';
 
 function AddBookModal({ closeModal }) {
 
-    const { decodedToken } = useAuth();
+    const { decodedToken, axiosHeaders } = useAuth();
 
     const [bookTitle, setBookTitle] = useState('');
     const [bookAuthor, setBookAuthor] = useState('');
@@ -32,7 +32,7 @@ function AddBookModal({ closeModal }) {
         bookCoverFormData.append("fileName", fileName);
         bookCoverFormData.append("file", bookCover);
 
-        axios.post('http://localhost:8080/upload/bookCover', bookCoverFormData)
+        axios.post('http://localhost:8080/upload/bookCover', bookCoverFormData, axiosHeaders)
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
 
@@ -52,9 +52,9 @@ function AddBookModal({ closeModal }) {
 
         console.log(bookData)
 
-        axios.post('http://localhost:8080/books', bookData)
+        console.log(axiosHeaders);
+        axios.post('http://localhost:8080/books', bookData, axiosHeaders)
             .then(res => {
-                console.log(res.data);
                 closeModal();
                 alert(`${bookTitle} has been added successfully!`);
                 window.location.reload()

@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { AiTwotonePhone } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/DecodedToken';
+import { FaRegUserCircle } from 'react-icons/fa'
+import { Box, Modal } from '@mui/material';
+import MyRentedBooks from '../Modals/MyRentedBooks';
 
 
 function StaticHeader() {
 
     const navigate = useNavigate();
 
-
+    const [rentedBooksModal, setRentedBooksModal] = useState(false);
 
     const { decodedToken } = useAuth();
 
@@ -53,20 +55,18 @@ function StaticHeader() {
 
 
     return (
-        <>  
+        <>
             <div className="bg-green-600 flex flex-wrap py-2 px-4 lg:px-14 text-white justify-between space-x-4">
                 <div className='hidden lg:flex'>
-                    <div className='mr-4 cursor-pointer' onClick={()=>navigate('/books')}>Books</div>
+                    <div className='mr-4 cursor-pointer' onClick={() => navigate('/books')}>Books</div>
                     <div className='mr-4'>About Us</div>
                     <div className='mr-4'>Contact</div>
                 </div>
-                <div className='flex items-center'>
-                    <AiTwotonePhone /> &nbsp; +91 98765 4321
-                </div>
+
 
                 <div className='relative'>
                     {localStorage.getItem('userFirstName') !== null && localStorage.getItem('userLastName') !== null ?
-                        <div ref={profileNameRef} className='flex items-center cursor-pointer' onClick={toggleDropDown}>{localStorage.getItem('userFirstName')} {localStorage.getItem('userLastName')}</div>
+                        <div ref={profileNameRef} className='flex items-center cursor-pointer' onClick={toggleDropDown}><FaRegUserCircle className='mr-2' /> {localStorage.getItem('userFirstName')} {localStorage.getItem('userLastName')}</div>
                         :
                         <div className='flex items-center cursor-pointer' onClick={() => navigate('/login')}> Login </div>
                     }
@@ -75,6 +75,9 @@ function StaticHeader() {
                         <ul ref={dropdownRef} className="absolute z-10 top-6 left-0 w-32 mt-2 bg-green-600 shadow-lg">
                             <li className="cursor-pointer p-2 hover:bg-green-500 border">
                                 Profile
+                            </li>
+                            <li className="cursor-pointer p-2 hover:bg-green-500 border" onClick={()=>setRentedBooksModal(true)}>
+                                Rented Books
                             </li>
                             <li className="cursor-pointer p-2 hover:bg-green-500 border" onClick={handleLogout}>
                                 Logout
@@ -88,8 +91,32 @@ function StaticHeader() {
                             <li className="cursor-pointer p-2 hover:bg-green-500 border">
                                 Profile
                             </li>
-                            <li className="cursor-pointer p-2 hover:bg-green-500 border" onClick={()=> navigate('/managebooks/')}>
+                            <li className="cursor-pointer p-2 hover:bg-green-500 border" onClick={() => navigate('/managebooks/')}>
                                 Manage Books
+                            </li>
+                            <li className="cursor-pointer p-2 hover:bg-green-500 border" onClick={()=>setRentedBooksModal(true)}>
+                                Rented Books
+                            </li>
+                            <li className="cursor-pointer p-2 hover:bg-green-500 border" onClick={handleLogout}>
+                                Logout
+                            </li>
+                        </ul>
+                    )}
+
+
+                    {isDropdownOpen && decodedToken.roles === 'ADMIN' && (
+                        <ul ref={dropdownRef} className="absolute z-10 top-6 left-0 w-32 mt-2 bg-green-600 shadow-lg">
+                            <li className="cursor-pointer p-2 hover:bg-green-500 border">
+                                Profile
+                            </li>
+                            <li className="cursor-pointer p-2 hover:bg-green-500 border" onClick={() => navigate('/managebooks/')}>
+                                Manage Books
+                            </li>
+                            <li className="cursor-pointer p-2 hover:bg-green-500 border" onClick={() => navigate('/manageusers/')}>
+                                Manage Users
+                            </li>
+                            <li className="cursor-pointer p-2 hover:bg-green-500 border" onClick={()=>setRentedBooksModal(true)}>
+                                Rented Books
                             </li>
                             <li className="cursor-pointer p-2 hover:bg-green-500 border" onClick={handleLogout}>
                                 Logout
@@ -103,6 +130,13 @@ function StaticHeader() {
 
 
             </div>
+
+            <Modal open={rentedBooksModal}
+                onClose={() => setRentedBooksModal(false)}>
+                <Box className="modal-box-container">
+                    <MyRentedBooks closeModal={() => setRentedBooksModal(false)}/>
+                </Box>
+            </Modal>
         </>
     )
 }

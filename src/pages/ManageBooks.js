@@ -36,65 +36,78 @@ function ManageBooks() {
         /* Other background properties here */
     };
 
+    
+    const { axiosHeaders } = useAuth();
 
     useEffect(() => {
 
         if (decodedToken && decodedToken.userId) {
-            axios.get(`http://localhost:8080/books/seller/${decodedToken.userId}`)
+            axios.get(`http://localhost:8080/books/seller/${decodedToken.userId}`, axiosHeaders)
                 .then((response) => {
                     setExistingBooks(response.data);
                 })
                 .catch((err) => console.log(err));
         }
 
-    }, [decodedToken])
+    }, [decodedToken, axiosHeaders])
 
 
     return (
-        
+
         <>
             <div className='p-8 bg-gray-100 text-2xl shadow-md text-center mb-8'>
                 Manage Books
             </div>
 
+            {decodedToken && decodedToken.roles !== 'CUSTOMER'
+                ?
+                <div>
+                    <div className='p-14 flex flex-wrap items-center justify-evenly mb-8' style={background}>
+                        <img src={addBookPic} className='max-w-60 max-w-lg w-50 h-auto mr-4' alt='' />
+                        <div className='text-4xl text-white leading-relaxed'>
+                            New Feature!
+                            <br />
+                            Quickly add books using the <span className='text-yellow-300 font-semibold'>Google Books API</span>.
+                        </div>
+                    </div>
 
-            <div className='p-14 flex flex-wrap items-center justify-evenly mb-8' style={background}>
-                <img src={addBookPic} className='max-w-60 max-w-lg w-50 h-auto mr-4' alt='' />
-                <div className='text-4xl text-white leading-relaxed'>
-                    New Feature!
-                    <br />
-                    Quickly add books using the <span className='text-yellow-300 font-semibold'>Google Books API</span>.
-                </div>
-            </div>
+                    <div className='mb-8 '>
+                        <div className='text-center text-2xl'>
+                            Your Books
+                        </div>
+                    </div>
 
-            <div className='mb-8 '>
-                <div className='text-center text-2xl'>
-                    Your Books
-                </div>
-            </div>
-
-            <SellerBooks userBooks={existingBooks}/>
+                    <SellerBooks userBooks={existingBooks} />
 
 
-            <Box className="mainBox">
-                <Button variant="contained"
-                    onClick={openGoogleBooksAPIModal}>Search on Google Books</Button>
-                <Modal open={googleModal}
-                    onClose={closeGoogleBooksAPIModal}>
-                    <Box className="modal-box-container">
-                        <AddBookWithGoogleAPI />
+                    <Box className="mainBox">
+                        <Button variant="contained"
+                            onClick={openGoogleBooksAPIModal}>Search on Google Books</Button>
+                        <Modal open={googleModal}
+                            onClose={closeGoogleBooksAPIModal}>
+                            <Box className="modal-box-container">
+                                <AddBookWithGoogleAPI />
+                            </Box>
+                        </Modal>
+
+                        <Button variant="contained"
+                            onClick={openAddBookModal}>Upload your own book</Button>
+                        <Modal open={addBookModal}
+                            onClose={closeAddBookModal}>
+                            <Box className="modal-box-container">
+                                <AddBookModal closeModal={closeAddBookModal} />
+                            </Box>
+                        </Modal>
                     </Box>
-                </Modal>
+                </div>
+                :
+                <div className='font-bold text-lg m-auto text-center mb-8'>
+                    You are not authorized to view this page.
+                </div>
+            }
 
-                <Button variant="contained"
-                    onClick={openAddBookModal}>Upload your own book</Button>
-                <Modal open={addBookModal}
-                    onClose={closeAddBookModal}>
-                    <Box className="modal-box-container">
-                        <AddBookModal closeModal={closeAddBookModal} />
-                    </Box>
-                </Modal>
-            </Box>
+
+
 
         </>
 

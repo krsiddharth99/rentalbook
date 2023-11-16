@@ -13,14 +13,15 @@ import { useAuth } from '../context/DecodedToken'
 
 function AddBookWithGoogleAPI() {
 
-    const { decodedToken } = useAuth();
+    const { decodedToken, axiosHeaders } = useAuth();
 
     const [searchValue, setSearchValue] = useState('');
 
     const [dataFromGoogle, setDataFromGoogle] = useState([]);
 
     function getBooksWithSearch() {
-        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchValue}`).then((res) => {
+        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchValue}`)
+        .then((res) => {
             setDataFromGoogle(res.data.items);
             console.log(res.data.items);
 
@@ -47,7 +48,7 @@ function AddBookWithGoogleAPI() {
             "genres": categories
         }
 
-        axios.post(`http://localhost:8080/books`, bookData)
+        axios.post(`http://localhost:8080/books`, bookData, axiosHeaders)
             .then(res => {
                 console.log(res.data);
                 alert(`${title} has been added successfully!`);
