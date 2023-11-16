@@ -2,8 +2,11 @@ import React from "react";
 import { BsWhatsapp } from 'react-icons/bs'
 import { BsInstagram } from 'react-icons/bs'
 import { RiTwitterXFill } from 'react-icons/ri'
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+
+  const navigate = useNavigate();
 
   return (
     <div className="bg-gradient-to-br from-slate-900 to-slate-950 py-6">
@@ -18,20 +21,12 @@ function Footer() {
         <div className="w-96 m-4">
           <div className="font-bold text-white">
             <div className="flex items-center">
-              <span className="ml-3 text-4xl" style={{ fontFamily: 'Griffy' }}>BookHive</span>
+              <span className="ml-3 text-4xl cursor-pointer" style={{ fontFamily: 'Griffy' }} onClick={()=>navigate('/')}>BookHive</span>
             </div>
             <hr className="my-2 border-gray-600" />
             <span className="font-light">
               BOOKHIVE is your digital haven for an extensive collection of books, from classics to contemporary gems. Explore, read, and immerse yourself in a world of literature, right at your fingertips."
             </span>
-          </div>
-        </div>
-
-
-        <div className="w-96 m-4">
-          <div className="flex w-full border-b-2 p-2 shadow-sm rounded-md bg-white">
-            <input className="w-full outline-none" placeholder="Search Books" />
-            🔍
           </div>
         </div>
 
@@ -44,13 +39,13 @@ function Footer() {
             <hr className="my-2 border-gray-600" />
             <span className="font-light">
               <div className="flex items-center mb-1">
-                <BsWhatsapp className="mr-2" /> Chat with us on WhatsApp<br />
+                <a href="https://wa.me/919677062540" target="_blank" rel="noreferrer" className="flex items-center"><BsWhatsapp className="mr-2" /> Chat with us on WhatsApp</a><br />
               </div>
               <div className="flex items-center mb-1">
-                <BsInstagram className='mr-2' /> Follow us on Instagram<br />
+                <a href="https://instagram.com" target="_blank" rel="noreferrer" className="flex items-center"><BsInstagram className='mr-2' /> Follow us on Instagram</a><br />
               </div>
               <div className="flex items-center mb-1">
-                <RiTwitterXFill className='mr-2' /> Hear us on X<br />
+                <a href="https://twitter.com" target="_blank" rel="noreferrer" className="flex items-center"><RiTwitterXFill className='mr-2' /> Hear us on X</a><br />
               </div>
 
 

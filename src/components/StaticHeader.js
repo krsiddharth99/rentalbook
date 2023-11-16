@@ -4,6 +4,7 @@ import { useAuth } from '../context/DecodedToken';
 import { FaRegUserCircle } from 'react-icons/fa'
 import { Box, Modal } from '@mui/material';
 import MyRentedBooks from '../Modals/MyRentedBooks';
+import { BsWhatsapp } from 'react-icons/bs'
 
 
 function StaticHeader() {
@@ -56,11 +57,11 @@ function StaticHeader() {
 
     return (
         <>
-            <div className="bg-green-600 flex flex-wrap py-2 px-4 lg:px-14 text-white justify-between space-x-4">
-                <div className='hidden lg:flex'>
+            <div className="bg-green-600 flex flex-wrap py-2 px-4 lg:px-14 text-white justify-between space-x-4 items-center">
+                <div className='hidden lg:flex items-center'>
                     <div className='mr-4 cursor-pointer' onClick={() => navigate('/books')}>Books</div>
                     <div className='mr-4 cursor-pointer' onClick={(()=>navigate('about'))}>About Us</div>
-                    <div className='mr-4'>Contact</div>
+                    <div className='mr-4'><a href='https://wa.me/9677062540' target='_blank' rel='noreferrer'><BsWhatsapp className='mr-2' /></a></div>
                 </div>
 
 
